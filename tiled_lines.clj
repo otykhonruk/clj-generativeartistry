@@ -1,6 +1,8 @@
 (ns generativeartistry.tiled-lines
   (:require [quil.core :refer :all]))
 
+;; https://generativeartistry.com/tutorials/tiled-lines/
+
 (defn setup []
   (no-loop))
 
@@ -41,4 +43,5 @@
   :size [750 750]
   :setup setup
   :draw draw
+  :settings #(pixel-density (display-density))
   :features [:keep-on-top])
