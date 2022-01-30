@@ -24,16 +24,16 @@
   (no-fill)
   (let [grid (range square-size size square-size)
         n-half-size (- (/ square-size 2))]
-    (doseq [j grid]
-      (doseq [i grid]
-        (let [amt (/ j size)
-              rotate-amt (radians (randomize amt rotate-multiplier))
-              translate-amt (randomize amt random-displacement)]
-          (translate (+ i translate-amt) j)
-          (rotate rotate-amt)
-          (rect n-half-size n-half-size
-                square-size square-size)
-          (reset-matrix))))))
+    (doseq [j grid
+            i grid
+            :let [amt (/ j size)
+                  rotate-amt (radians (randomize amt rotate-multiplier))
+                  translate-amt (randomize amt random-displacement)]]
+      (translate (+ i translate-amt) j)
+      (rotate rotate-amt)
+      (rect n-half-size n-half-size
+            square-size square-size)
+      (reset-matrix))))
 
 
 (defn setup []

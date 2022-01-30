@@ -22,9 +22,6 @@
         [x (- y rnd)]))))
 
 
-(let [grid (range step size step)]
-  (for [x grid y grid] [x y]))
-
 (defn draw []
   (background 255)
   (stroke-weight 2)
