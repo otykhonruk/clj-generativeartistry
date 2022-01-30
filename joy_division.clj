@@ -7,30 +7,39 @@
 (def size 600)
 (def step 20)
 (def offset 100)
+(def draw-points false)
 
 
 (defn make-lines
   []
-  (for [y (range step size step)]
-    (for [x (range step size step)
-          :let [center (/ size 2)
-                dist-to-center (abs (- x center))
-                variance (max 0 (- center offset dist-to-center))
-                rnd (/ (* (rand) variance) 2)]]
-      [x (- y rnd)])))
+  (let [grid (range step size step)
+        center (/ size 2)]
+    (for [y grid]
+      (for [x grid
+            :let [dist-to-center (abs (- x center))
+                  variance (max 0 (- center offset dist-to-center))
+                  rnd (/ (* (rand) variance) 2)]]
+        [x (- y rnd)]))))
 
+
+(let [grid (range step size step)]
+  (for [x grid y grid] [x y]))
 
 (defn draw []
   (background 255)
   (stroke-weight 2)
   (doseq [line (drop 3 (make-lines))]
+    (stroke 0)
     (begin-shape)
     (apply vertex (first line))
     (doseq [[[ax ay][bx by]] (partition 2 1 line)
             :let [cx (/ (+ ax bx) 2)
                   cy (/ (+ ay by) 2)]]
       (quadratic-vertex ax ay cx cy))
-    (end-shape)))
+    (end-shape)
+    (when draw-points
+      (stroke 255 0 0)
+      (doseq [[px py] line] (point px py)))))
 
 
 (defn setup []

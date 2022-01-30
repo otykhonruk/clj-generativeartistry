@@ -15,7 +15,7 @@
 (defn randomize
   [amt val]
   (let [plus-or-minus (if (< (rand) 0.5) -1 1)]
-    (* (rand) amt plus-or-minus val)))
+    (* amt val plus-or-minus (rand))))
 
 
 (defn draw []
@@ -41,7 +41,7 @@
 
 
 (defsketch cubic-disarray
-  :title "Cubis disarray"
+  :title "Cubic disarray"
   :size [size size]
   :setup setup
   :draw draw
