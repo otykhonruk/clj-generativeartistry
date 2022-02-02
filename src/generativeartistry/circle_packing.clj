@@ -1,13 +1,14 @@
 (ns generativeartistry.circle-packing
   (:require [quil.core :refer :all]))
 
+;; https://generativeartistry.com/tutorials/circle-packing/
 
 (def max-cycles 9999)
 (def max-radius 100)
 (def min-radius 2)
 
 
-(defn phi
+(defn maximize-radius
   "Calculates max radius of the circle with the center at (x, y)
   that do not intersects with the circle (tx, ty) and radius tr"
   [[tx ty tr] x y]
@@ -18,8 +19,8 @@
 
 
 (defn next-circle
-  "Generate the biggest possible circle at a random postition
-  that fits into the field of the existing circles"
+  "Generate the biggest possible circle at a random position
+  that can be placed into the field of the existing circles"
   [circles]
   (let [w (width)
         h (height)
@@ -29,7 +30,7 @@
         dy (- h y)
         ;; max radius given other circles
         r (reduce (fn [acc c]
-                    (let [p (phi c x y)]
+                    (let [p (maximize-radius c x y)]
                       (if (< p 0)
                         (reduced p)  ; stop, if center is inside existing circle
                         (min acc p))))
@@ -44,11 +45,10 @@
   (loop [circles [] cycles 0]
     (if (>= cycles max-cycles)
       circles
-      (let [next (next-circle circles)]
-        (recur (if next
-                 (conj circles next)
-                 circles)
-               (inc cycles))))))
+      (recur (if-let [next (next-circle circles)]
+               (conj circles next)
+               circles)
+             (inc cycles)))))
 
 
 (defn draw []
