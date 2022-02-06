@@ -3,7 +3,8 @@
 [Generativeartistry tutorials](https://generativeartistry.com/tutorials/) implemented in Clojure/Processing
 using [Quil](http://quil.info/).
 
-I mostly followed the logic of original implementation, deliberately replacing imperative techniques with their functional equivalents.
+I mostly followed the logic of the original implementations, occasionally replacing imperative techniques with their functional equivalents.
+
 
 ## Usage
 
