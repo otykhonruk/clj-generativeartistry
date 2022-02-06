@@ -7,7 +7,6 @@
 (def size 600)
 (def step 20)
 (def offset 100)
-(def draw-points false)
 
 
 (defn make-lines
@@ -30,13 +29,11 @@
     (begin-shape)
     (apply vertex (first line))
     (doseq [[[ax ay][bx by]] (partition 2 1 line)
-            :let [cx (/ (+ ax bx) 2)
-                  cy (/ (+ ay by) 2)]]
+            :let [cx (lerp ax bx 0.5)
+                  cy (lerp ay by 0.5)]]
       (quadratic-vertex ax ay cx cy))
-    (end-shape)
-    (when draw-points
-      (stroke 255 0 0)
-      (doseq [[px py] line] (point px py)))))
+    (apply vertex (last line))
+    (end-shape)))
 
 
 (defn setup []
