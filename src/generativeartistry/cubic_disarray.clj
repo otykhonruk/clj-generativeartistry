@@ -14,8 +14,7 @@
 
 (defn randomize
   [amt val]
-  (let [plus-or-minus (if (< (rand) 0.5) -1 1)]
-    (* amt val plus-or-minus (rand))))
+  (* amt val (random -1 1)))
 
 
 (defn draw []
